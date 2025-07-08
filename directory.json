@@ -1,0 +1,11 @@
+{
+    "directory":"competition_name/match_name/FileS",
+    "exclude": {
+        "competition_name": [
+            "test*/"
+        ],
+        "match_name": [
+            "test*/"
+        ]
+    }
+}

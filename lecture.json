@@ -1,0 +1,18 @@
+{
+    "videos": {
+        "type":"list",
+        "extension": "mp4"
+    },
+    "images": {
+        "type":"list",
+        "extension": "jpg"
+    },
+    "perspective": {
+        "type": "important",
+        "extension": "json"
+    },
+    "metadata": {
+        "type": "string",
+        "extension": "json |csv"
+    }
+}

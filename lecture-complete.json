@@ -1,0 +1,45 @@
+{
+    "videos": {
+        "type":"list",
+        "display":"none=",
+        "download": "false",
+        "extension": "mp4",
+        "detailed":"none"
+    },
+    "images": {
+        "type":"list",
+        "display":"none",
+        "download": "none",
+        "extension": "jpg",
+        "detailed":"none"
+    },
+    "perspective": {
+        "type": "important",
+        "display": "exist",
+        "download": "one",
+        "extension": "json",
+        "detailed":"name"
+    },
+    "figures": {
+        "type": "important",
+        "display": "exist",
+        "download": "true",
+        "extension": "json",
+        "detailed":"name"
+    },
+    "metadata": {
+        "type": "string",
+        "display": "exist",
+        "download": "true",
+        "extension": "json",
+        "detailed":"name",
+        "fields": [
+            "nameCompetition",
+            "nameCourse",
+            "dateCompetition",
+            "dateCourse",
+            "locationCompetition",
+            "locationCourse"
+        ]
+    }
+}
