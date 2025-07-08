@@ -1,0 +1,10 @@
+{
+    "images": {
+        "type":"include",
+        "extension": "jpg"
+    },
+    "poster": {
+        "type": "list",
+        "extension": "png"
+    }
+}

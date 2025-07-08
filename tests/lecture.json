@@ -1,0 +1,14 @@
+{
+    "images": {
+        "type":"include",
+        "extension": "jpg"
+    },
+    "poster": {
+        "type": "important",
+        "extension": "jpg"
+    },
+    "copy": {
+        "type": "list",
+        "extension": "jpg"
+    }
+}

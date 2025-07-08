@@ -1,5 +1,5 @@
 {
-    "directory":"competition_name/match_name/",
+    "directory":"competition_name/match_name/files",
     "exclude": {
         "competition_name": [
             "test/*"

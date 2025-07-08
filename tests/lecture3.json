@@ -1,0 +1,14 @@
+{
+    "images": {
+        "type":"include",
+        "extension": "jpg"
+    },
+    "poster": {
+        "type": "important",
+        "extension": "jpg"
+    },
+    "peche": {
+        "type": "string",
+        "extension": "json"
+    }
+}

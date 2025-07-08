@@ -1,0 +1,27 @@
+[
+    {
+        "competition_name": "great_test",
+        "match_name": "more_test",
+        "images": [
+            "joli_poster.jpg"
+        ],
+        "all_poster": [
+            "joli_poster.jpg"
+        ],
+        "validate_poster": "",
+        "copy": []
+    },
+    {
+        "competition_name": "great_test",
+        "match_name": "this_test",
+        "images": [
+            "poster.jpg",
+            "__copy.jpg"
+        ],
+        "all_poster": [],
+        "validate_poster": "poster.jpg",
+        "copy": [
+            "__copy.jpg"
+        ]
+    }
+]

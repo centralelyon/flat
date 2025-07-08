@@ -35,7 +35,7 @@ Each of these keys need to be a dictionary.
 This key is here to determine which extensions need to be include.
 **Be aware :** This field can not be empty, "" is not authorized.
 
-If you want to include multiple extensions, just add a | between them without adding space.
+If you want to include multiple extensions, just add a | between them without adding space. I doesn't work with the type string.
 
 ## the type field <- Mandatory
 This key is here to determine what type of element will be the key in the flat.json file.
