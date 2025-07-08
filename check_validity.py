@@ -78,8 +78,11 @@ def check_lecture_validity(dir_path: str, filename="lecture.json") -> bool:
             raise ValueError(f"Key '{key}' in {lecture_path} does not contain the required 'extension' key.")
         if not isinstance(data[key]["extension"], str):
             raise ValueError(f"Expected 'extension' for key '{key}' to be a string, but found {type(data[key]['extension']).__name__} in {lecture_path}.")
-        
         extensions:list[str] = data[key]["extension"].split("|")
+
+        if (data[key]["type"] == "string" or data[key]["type"] == "important")and len(extensions) > 1:
+            raise ValueError(f"Key '{key}' in {lecture_path} has multiple extensions for type 'string' or 'important'. Expected a single extension.")
+        
         for ext in extensions:
             if ext != ext.strip():
                 print(f"Extension '{ext}' in key '{key}' of {lecture_path} contains leading or trailing whitespace.")

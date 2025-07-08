@@ -48,7 +48,7 @@ def flat_generator(
 
     if dir.split('/')[-1] == "":
         print("case empty directory")
-        correct_dir:list[str] = listingSubDir(directory, dir_depth)
+        correct_dir:list[str] = listingSubDir(directory, directory_data, dir_depth)
             
         corrected_dir = [d[len(directory)+1:] for d in correct_dir if d.startswith(directory)]
 
@@ -59,7 +59,7 @@ def flat_generator(
             if not os.path.isdir(os.path.join(directory, direc)):
                 raise ValueError(f"Directory {direc} does not exist in {directory}.")
 
-            files = os.listdir(os.path.join(directory, direc))
+            files = filesExclude(os.path.join(directory, direc), directory_data)
             new_flat: dict[str, list[str]|str] = {}
             for index in range(min(len(dir.split('/'))-1, len(direc.split('\\')))):
                 new_flat[dir.split('/')[index]] = direc.split('\\')[index]
@@ -99,7 +99,7 @@ def flat_generator(
 
     elif dir.split('/')[-1] == "file":
         print("case file directory")
-        correct_dir:list[str] = listingSubDir(directory, dir_depth)
+        correct_dir:list[str] = listingSubDir(directory, directory_data, dir_depth)
 
         corrected_dir = [d[len(directory)+1:] for d in correct_dir if d.startswith(directory)]
 
@@ -109,7 +109,7 @@ def flat_generator(
         for direc in corrected_dir:
             if not os.path.isdir(os.path.join(directory, direc)):
                 raise ValueError(f"Directory {direc} does not exist in {directory}.")
-            files = os.listdir(os.path.join(directory, direc))
+            files = filesExclude(os.path.join(directory, direc), directory_data)
             only_files = [f for f in files if os.path.isfile(os.path.join(directory, direc, f))]
             for only_file in only_files:
                 new_flat: dict[str, list[str]|str] = {}
@@ -120,7 +120,7 @@ def flat_generator(
 
     elif dir.split('/')[-1] == "files":
         print("case files directory")
-        correct_dir:list[str] = listingSubDir(directory, dir_depth, False)
+        correct_dir:list[str] = listingSubDir(directory, directory_data, dir_depth, False)
 
         corrected_dir = [d[len(directory)+1:] for d in correct_dir if d.startswith(directory)]
 
@@ -131,7 +131,7 @@ def flat_generator(
             if not os.path.isdir(os.path.join(directory, direc)):
                 raise ValueError(f"Directory {direc} does not exist in {directory}.")
             
-            files = os.listdir(os.path.join(directory, direc))
+            files = filesExclude(os.path.join(directory, direc), directory_data)
             only_files = [f for f in files if os.path.isfile(os.path.join(directory, direc, f))]
             for only_file in only_files:
                 new_flat: dict[str, list[str]|str] = {}
@@ -144,35 +144,75 @@ def flat_generator(
     return flat
 
 
-def listingSubDir(directory: str, depth: int = 0, lastOnly:bool = True) -> list[str]:
+def listingSubDir(
+    directory:str,
+    directory_json:dict={},
+    depth: int = 0,
+    lastOnly:bool = True
+) -> list[str]:
     """
     List all subdirectories in a given directory up to a specified depth.
     """
+    exclude: dict = directory_json.get("exclude", {})
+
     current_list_directory:list[str] = [directory]
     all_directories:list[str] = []
     list_directory:list[str] = []
 
+    count = 0
     while depth > 0:
+        name = directory_json["directory"].split("/")[count]
+        list_exclude:list[str] = []
+        list_start_exclude:list[str] = []
+        if name in exclude:
+            list_exclude = [n for n in exclude[name] if n.endswith('/') or n.endswith('\\')]
+            list_start_exclude = [n for n in exclude[name] if n.endswith('*')]
+
         new_list_directory = []
+        print(list_exclude, list_start_exclude)
         for current_directory in current_list_directory:
             new_directory = os.listdir(current_directory)
-            new_list_directory.extend([os.path.join(current_directory, d) for d in new_directory if os.path.isdir(os.path.join(current_directory, d))])
-            all_directories.extend(new_list_directory)
-            if depth == 1: # if we are at the last depth, we want all directories
-                list_directory.extend(new_list_directory)
+            new_list_directory.extend([os.path.join(current_directory, d) for d in new_directory
+                                       if os.path.isdir(os.path.join(current_directory, d))
+                                       and d not in list_exclude
+                                       and not any(d.startswith(start_exclude[:-2]) for start_exclude in list_start_exclude)])
+
+
+        all_directories.extend(new_list_directory)
+        if depth == 1: # if we are at the last depth, we want all directories
+            list_directory.extend(new_list_directory)
 
         current_list_directory = new_list_directory.copy()
         depth -= 1
+        count += 1
     if lastOnly:
         return list_directory
     else:
         return all_directories
 
-def export_json(data: list, filename: str) -> None:
+def filesExclude(directory: str, directory_json: dict) -> list[str]:
+    """
+    Exclude files from a directory based on the exclude dictionary.
+    """
+    files = os.listdir(directory)
+    exclude: dict = directory_json.get("exclude", {})
+    excluded_files = []
+    
+    for key, patterns in exclude.items():
+        for pattern in patterns:
+            if pattern.endswith('*'):
+                pattern = pattern[:-1]  # Remove the trailing '*'
+                excluded_files.extend([f for f in files if f.startswith(pattern)])
+            else:
+                excluded_files.extend([f for f in files if f == pattern])
+    
+    return [f for f in files if f not in excluded_files]
+
+def export_json(data: list, path: str) -> None:
     """
     Export data to a JSON file.
     """
-    with open(filename, 'w') as file:
+    with open(path, 'w') as file:
         json.dump(data, file, indent=4)
         
 

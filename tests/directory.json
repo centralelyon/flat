@@ -5,7 +5,8 @@
             "test/*"
         ],
         "match_name": [
-            "test/*"
+            "test/*",
+            "__copy.jpg"
         ]
     }
 }
