@@ -4,6 +4,15 @@ import json
 
 
 def check_directory_validity(dir_path: str, filename="directory.json") -> bool:
+    """Check the validity of a directory JSON file.
+    Args:
+        dir_path (str): The path to the directory containing the JSON file.
+        filename (str): The name of the JSON file to check. Defaults to "directory.json".
+    Returns:
+        bool: True if the JSON file is valid, otherwise raises an error.
+    Raises:
+        ValueError: If the JSON file is not found, is not a valid JSON object, or does not contain the required keys.
+    """
     if "." not in filename:
         filename += ".json"
     directory_path = os.path.join(dir_path, filename)
@@ -46,6 +55,15 @@ def check_directory_validity(dir_path: str, filename="directory.json") -> bool:
 
 
 def check_lecture_validity(dir_path: str, filename="lecture.json") -> bool:
+    """Check the validity of a lecture JSON file.
+    Args:
+        dir_path (str): The path to the directory containing the JSON file.
+        filename (str): The name of the JSON file to check. Defaults to "lecture.json".
+    Returns:
+        bool: True if the JSON file is valid, otherwise raises an error.
+    Raises:
+        ValueError: If the JSON file is not found, is not a valid JSON object, or does not contain the required keys.
+    """
     if "." not in filename:
         filename += ".json"
     lecture_path = os.path.join(dir_path, filename)

@@ -6,6 +6,16 @@ def flat_generator(
         directory: str,
         directory_filename: str = "directory.json",
         lecture_filename: str = "lecture.json") -> list:
+    """    Generate a flat list of files and directories based on the provided directory and lecture JSON files.
+    Args:
+        directory (str): The path to the directory containing the JSON files.
+        directory_filename (str): The name of the directory JSON file. Defaults to "directory.json".
+        lecture_filename (str): The name of the lecture JSON file. Defaults to "lecture.json".
+    Returns:
+        list: A flat list of dictionaries containing the directory structure and files.
+    Raises:
+        ValueError: If the directory or lecture JSON files are not found, are not valid JSON objects, or do not contain the required keys.
+    """
     if "." not in directory_filename:
         directory_filename += ".json"
     directory_path = os.path.join(directory, directory_filename)
@@ -152,6 +162,15 @@ def listingSubDir(
 ) -> list[str]:
     """
     List all subdirectories in a given directory up to a specified depth.
+
+    Args:
+        directory (str): The path to the directory to list.
+        directory_json (dict): The JSON data containing the directory structure and exclusions.
+        depth (int): The depth to which subdirectories should be listed. Defaults to 0
+        lastOnly (bool): If True, only return the directories at the last depth. Defaults to True.
+
+    Returns:
+        list[str]: A list of subdirectories at the specified depth, or all subdirectories if `lastOnly` is False.
     """
     exclude: dict = directory_json.get("exclude", {})
 
@@ -193,6 +212,13 @@ def listingSubDir(
 def filesExclude(directory: str, directory_json: dict) -> list[str]:
     """
     Exclude files from a directory based on the exclude dictionary.
+    
+    Args:
+        directory (str): The path to the directory to list files from.
+        directory_json (dict): The JSON data containing the directory structure and exclusions.
+    
+    Returns:
+        list[str]: A list of files in the directory that are not excluded.
     """
     files = os.listdir(directory)
     exclude: dict = directory_json.get("exclude", {})
@@ -211,6 +237,11 @@ def filesExclude(directory: str, directory_json: dict) -> list[str]:
 def export_json(data: list, path: str) -> None:
     """
     Export data to a JSON file.
+    Args:
+        data (list): The data to export.
+        path (str): The path where the JSON file will be saved.
+    Returns:
+        None
     """
     with open(path, 'w') as file:
         json.dump(data, file, indent=4)
