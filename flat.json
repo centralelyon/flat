@@ -1,0 +1,14 @@
+[
+    {
+        "name": "file_1.txt",
+        "path": "dir_1_file_txt/file_1.txt",
+        "is_file": true,
+        "is_dir": false
+    },
+    {
+        "name": ".DS_Store",
+        "path": "dir_1_file_txt/.DS_Store",
+        "is_file": true,
+        "is_dir": false
+    }
+]

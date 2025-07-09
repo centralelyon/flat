@@ -40,13 +40,19 @@ It will generate the following flat array as a JSON file:
 
 - Provide access to a file system using a single index file
 - Create index with custom attributes and access control
-
+- Keep files that are needed and ignore files like dot files (e.g. DS_Store)
 
 ## How does it work?
 
 It relies upon json file to configurate the programs, so you will find a Markdown file for each config files to better understand how to use this program. Those markdown files will be named the same way of the config files.
 
 The json file created by this program is a list of dictionaries that can represent either a file or a directory.
+
+A set of rules enables:
+- to calculate and store files attributes
+- capture the structure (depth, path)
+- extract meta-data from videos
+- 
 
 ## How to automatically generalte and deploy?
 
@@ -69,12 +75,15 @@ Errors may occur and are managed as follows
 - Default value is provided in attributes
 - 
 
-## TODO
+## Similar projets and alternatives
+
+- 
+
+## TODO and Roadmap
 
 - Do more tests with asserts.
 - Add more data when you do the flat at the file level.
 - Be capable of managing well sub directories.
-
-# Similar projets and alternatives
-
-- 
+- Write rules to ignore files.
+- Support other languages (e.g. JavaScript).
+- Optimize to only update the file that have changed.
