@@ -2,6 +2,14 @@ import os
 import json
 
 
+def count_chars_in_txt_file(file_path):
+    """Compte le nombre de caractères dans un fichier .txt"""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return len(f.read())
+    except Exception as e:
+        return None 
+
 def list_items_in_directory(directory_path):
     try:
         items = []
@@ -9,12 +17,16 @@ def list_items_in_directory(directory_path):
             if entry.startswith('.'):
                 continue  # Ignore les fichiers cachés
             full_path = os.path.join(directory_path, entry)
-            items.append({
+            item = {
                 "name": entry,
                 "path": full_path,
                 "is_file": os.path.isfile(full_path),
                 "is_dir": os.path.isdir(full_path)
-            })
+            }
+            # Utilisation de la fonction indépendante pour les fichiers .txt
+            if item["is_file"] and entry.lower().endswith('.txt'):
+                item["char_count"] = count_chars_in_txt_file(full_path)
+            items.append(item)
         # Structure avec le nom du dossier racine
         result = items
         with open("flat_dir_1_file_txt.json", "w") as json_file:

@@ -1,17 +1,17 @@
-# Flat JSON Array for Directory Structure
+# Flat JSON Array for Files and Directory Index
 
-The goal of this project is provide a flat array to nested, hierarchical directory strucures. This flat array will be saved in a file named `flat.json` as the root of the directory, to be used programmatically. This array will contain various informations on:
+The goal of this project is provide a flat array that captures fiels and directories properties and structure. As those usually are hierarchical, the flat array provides a more usuable and readable way to filter, agregate and rank, while capturing the structure. This flat array will be saved in a file named `flat.json` at the root of the main directory. This array will contain various informations on:
 
-- the directory hierarchical structure
-- directories and files properties
-- other
+- The directory hierarchical structure
+- Directories and files properties
+- Other meta-data
 
 Given the following directory structure:
 
 ```
-├── dir1
-│   ├── file1.txt
-└── file3.txt
+├── dir_1
+│   ├── file_1.txt
+└── file_2.txt
 ```
 
 It will generate the following flat array as a JSON file:
@@ -19,24 +19,24 @@ It will generate the following flat array as a JSON file:
 ```
 [
     {
-        "name": "dir1",
+        "name": "dir_1",
         "type": "directory",
         "path": "/"
     },
     {
-        "name": "file1.txt",
+        "name": "file_1.txt",
         "type": "file",
-        "path": "/dir1/"
+        "path": "/dir_1/"
     }, 
     {
-        "name": "file3.txt",
+        "name": "file_2.txt",
         "type": "file",
         "path": "/"
     }
 ]
 ````
 
-## Examples of use
+It is fully customizable and can be used to:
 
 - Provide access to a file system using a single index file
 - Create index with custom attributes and access control
@@ -49,10 +49,16 @@ It relies upon json file to configurate the programs, so you will find a Markdow
 The json file created by this program is a list of dictionaries that can represent either a file or a directory.
 
 A set of rules enables:
-- to calculate and store files attributes
-- capture the structure (depth, path)
-- extract meta-data from videos
-- 
+- To calculate and store files attributes
+- Capture the structure (depth, path)
+- Extract meta-data from videos 
+
+## Attributes types
+
+
+### .txt
+
+- Number of characters
 
 ## How to automatically generalte and deploy?
 
@@ -64,16 +70,12 @@ Automatic generation:
 
 Automatic deploy:
 
-- Webhooks that update and run
+- Webhooks that update and run the script
 
 Error management:
 
-## Error management
-
-Errors may occur and are managed as follows
-
-- Default value is provided in attributes
-- 
+- Default value if attribute cannot be calculated
+- ..
 
 ## Similar projets and alternatives
 
