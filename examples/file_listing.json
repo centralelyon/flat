@@ -1,0 +1,20 @@
+[
+    {
+        "name": "gen_flat.py",
+        "path": "./gen_flat.py",
+        "is_file": true,
+        "is_dir": false
+    },
+    {
+        "name": "file_listing.json",
+        "path": "./file_listing.json",
+        "is_file": true,
+        "is_dir": false
+    },
+    {
+        "name": ".git",
+        "path": "./.git",
+        "is_file": false,
+        "is_dir": true
+    }
+]
